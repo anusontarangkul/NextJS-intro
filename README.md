@@ -1,34 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# nextjs-intro
 
-## Getting Started
+An introductory web application to learn about Next JS.
 
-First, run the development server:
+![screenshot](screenshot.png)
 
-```bash
-npm run dev
-# or
-yarn dev
+|                                         |                                         |                                                   |
+| :-------------------------------------: | :-------------------------------------: | :-----------------------------------------------: |
+|      [Introduction](#nextjs-intro)      | [Table of Contents](#table-of-contents) | [Development Highlights](#development-highlights) |
+|        [Deployment](#deployment)        |    [Page Directory](#page-directory)    |       [Code Hightlights](#code-highlights)        |
+| [Technologies Used](#Technologies-Used) |           [Credits](#Credits)           |                [License](#License)                |
+
+## Development Highlights
+
+- Create Next app using npx.
+- Use global styling and module styling.
+- Use components and pages.
+- Create default 404 page.
+- Render external api calls.
+- Use Layout to render components to all pages.
+
+## Deployment
+
+[Deployed](https://nextjs-intro-tan.vercel.app/). The web app was deployed on vercel.
+
+## Page Directory
+
+The components are inside the comps folder and a Layout.js is used to render repeated components.
+
+The pages contain the api folders and other pages. The folders inside pages follows the URL link for it.
+
+A globals.css is used in the styles folder and the corresponding css modules are created for the pages.
+
+## Code Highlights
+
+Fetching to external api using getStaticProps to render information.
+
+```JavaScript
+export const getStaticProps = async () => {
+    const res = await fetch('https://jsonplaceholder.typicode.com/users');
+    const data = await res.json();
+    return {
+        props: { ninjas: data }
+    }
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+NotFound 404 default page that redirects to the home page after 3 seconds.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```JavaScript
+const NotFound = () => {
+    const router = useRouter();
+    useEffect(() => {
+        setTimeout(() => {
+            router.push('/');
+        }, 3000)
+    }, [])
+    return (
+        <div className='not-found'>
+            <h1>Ooops...</h1>
+            <h2>That page cannot be found.</h2>
+            <p>Go back to the <Link href='/'><a>Homepage</a></Link></p>
+        </div>
+    )
+}
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Technologies
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [Next.js](https://nextjs.org/)
 
-## Learn More
+## Credits
 
-To learn more about Next.js, take a look at the following resources:
+The Next.js [tutorial](https://www.youtube.com/watch?v=A63UxsQsEbU) by The Net Ninja.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+|                           |                                                                                                                                                                                                       |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **David Anusontarangkul** | [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/anusontarangkul/) [![GitHub](https://i.stack.imgur.com/tskMh.png) GitHub](https://github.com/anusontarangkul) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/)
